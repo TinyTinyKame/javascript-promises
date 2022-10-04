@@ -1,5 +1,5 @@
 function wait(ms) {
-  var start = Date.now(),
+  let start = Date.now(),
       now = start;
   while (now - start < ms) {
     now = Date.now();
@@ -13,24 +13,26 @@ class Dog {
 
   fetchBall(distance = 'short') {
     switch(distance) {
-      case 'short':
-        return this.returnBall();
       case 'long':
         wait(2000);
+        return this.returnBall();
+      case 'short':
+      default:
         return this.returnBall();
     }
   }
 
   asyncFetchBall(distance = 'short') {
     switch(distance) {
-      case 'short':
-        return new Promise((resolve, reject) => {
-          resolve(this.returnBall());
-        });
       case 'long':
         return new Promise((resolve, reject) => {
           setTimeout(() => resolve(this.returnBall()), 2000);
-        })
+        });
+      case 'short':
+      default:
+        return new Promise((resolve, reject) => {
+          resolve(this.returnBall());
+        });
     }
   }
 
